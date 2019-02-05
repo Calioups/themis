@@ -55,10 +55,24 @@ public class SpiTransmitter implements SynthParameterEditListener<Object> {
 	public void synthParameterEdited(SynthParameterEditEvent<Object> e) {
 		
 		Object o = e.getValue();
+		int status, data1, dat2;
+		sm = new ShortMessage();
+		if (o instanceof Boolean){
+			if (o.value == false)
+				status = ShortMessage.NOTE_ON;
+			else
+				status = ShortMessage.NOTE_OFF;
+			data1 = 80; //ici fixé de manière arbitraire
+			data2 = 100;
+			sm.setMessage(status,data1,data2);
+		 	this.transmitMidiMessage(sm);
+			}
+		
 		/*if (o instanceof Double) bla bla bla
 		else if (o instance of Boolean) bla bla bla
 		else bla bla bla*/
 		// @loic : c'est ici que tu dois decortiquer l'event "e" et envoyer les donnees correspondantes sur le bus
+		//@sylvain est ce que le corps du if est correct (en ajoutant la récupération des données) ?
 	}
 
 
